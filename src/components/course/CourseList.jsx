@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { TextInput, Button, ListGroup } from 'flowbite-react'; 
+import { TextInput, Button, ListGroup, Spinner } from 'flowbite-react'; 
 import CourseCard from './CourseCard';
 import CourseDetails from './CourseDetails';
 import Layout from '../student/Layout';
@@ -9,6 +9,7 @@ const CourseList = () => {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCourse, setSelectedCourse] = useState(null); 
+  const [loading, setLoading] = useState(true); // State for loader
 
   useEffect(() => {
     axios
@@ -16,10 +17,12 @@ const CourseList = () => {
       .then((response) => {
         setCourses(response.data);
         console.log(response.data);
-        
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
+      })
+      .finally(() => {
+        setLoading(false); // Set loading to false after fetching
       });
   }, []);
 
@@ -39,44 +42,39 @@ const CourseList = () => {
 
   return (
     <Layout>
-  <div className="container mx-auto px-4 py-8 ">
-      {!selectedCourse ? (
-        <>
-          <div className="mb-4 flex items-center mt-4">
-            <TextInput
-              type="text"
-              placeholder="Search by Course Name or Instructor"
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full max-w-md border-gray-300 rounded-l-md"
-            />
-            <Button
-              type="button"
-              color="primary"
-              className="ml-2 rounded-r-md"
-            >
-              Search
-            </Button>
+      <div className="container mx-auto px-4 py-8">
+        {loading ? ( // Show loader if loading is true
+          <div className="flex justify-center items-center h-full">
+            <Spinner size="xl" color="info" aria-label="Loading..." />Loading....
           </div>
-          {filteredCourses.length > 0 ? (
-            <ListGroup>
-              {filteredCourses.map((course) => (
-                <CourseCard
-                  key={course.id}
-                  course={course}
-                  onSelect={handleSelectCourse} 
-                />
-              ))}
-            </ListGroup>
-          ) : (
-            <p className="text-gray-600 text-center mt-4">No courses found.</p>
-          )}
-        </>
-      ) : (
-        <CourseDetails course={selectedCourse} onBack={handleBackToList} /> 
-      )}
-    </div>
+        ) : !selectedCourse ? (
+          <>
+            <div className="mb-4 flex items-center mt-4">
+              <TextInput
+                type="text"
+                placeholder="Search by Course Name or Instructor"
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full max-w-md border-gray-300 rounded-l-md"
+              />
+              <Button type="button" color="primary" className="ml-2 rounded-r-md">
+                Search
+              </Button>
+            </div>
+            {filteredCourses.length > 0 ? (
+              <ListGroup>
+                {filteredCourses.map((course) => (
+                  <CourseCard key={course.id} course={course} onSelect={handleSelectCourse} />
+                ))}
+              </ListGroup>
+            ) : (
+              <p className="text-gray-600 text-center mt-4">No courses found.</p>
+            )}
+          </>
+        ) : (
+          <CourseDetails course={selectedCourse} onBack={handleBackToList} /> 
+        )}
+      </div>
     </Layout>
-  
   );
 };
 
