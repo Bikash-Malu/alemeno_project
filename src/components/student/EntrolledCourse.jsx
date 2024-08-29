@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, TextInput, Button } from 'flowbite-react';
-import { removeCourse } from '../../redux/courseSlice';
+import { Card, TextInput, Button, Progress } from 'flowbite-react';
+import { removeCourse, markCourseAsCompleted } from '../../redux/courseSlice';
 import Layout from './Layout';
 import Swal from 'sweetalert2';
 import { toast } from 'react-hot-toast';
@@ -31,6 +31,11 @@ const EnrolledCourse = () => {
     }
   };
 
+  const handleMarkAsCompleted = (course) => {
+    dispatch(markCourseAsCompleted(course));
+    toast.success(`${course.name} marked as completed!`);
+  };
+
   return (
     <Layout>
       <div className="p-4">
@@ -55,13 +60,31 @@ const EnrolledCourse = () => {
                 <p className="text-gray-500">Instructor: {course.instructor}</p>
                 <p className="text-gray-500">Duration: {course.duration} hours</p>
                 <p className="text-gray-500">Location: {course.location}</p>
-                <Button
-                  onClick={() => handleRemove(course)}
-                  color="red"
+
+                <Progress
+                  value={course.isCompleted?'100%':'0%'}
+                  size="md"
                   className="mt-4"
-                >
-                  Remove
-                </Button>
+                  color={course.isCompleted ? 'green' : 'gray'}
+                />
+ <span className="ml-2 text-sm text-gray-700">
+                    {course.progress}%
+                  </span>
+                <div className="flex justify-between mt-4">
+                  <Button
+                    onClick={() => handleMarkAsCompleted(course)}
+                    color="success"
+                    disabled={course.isCompleted}
+                  >
+                    {course.isCompleted ? 'Completed' : 'Mark as Completed'}
+                  </Button>
+                  <Button
+                    onClick={() => handleRemove(course)}
+                    color="red"
+                  >
+                    Remove
+                  </Button>
+                </div>
               </Card>
             ))}
           </div>

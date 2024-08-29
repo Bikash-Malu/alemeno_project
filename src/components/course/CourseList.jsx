@@ -56,9 +56,7 @@ const CourseList = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full max-w-md border-gray-300 rounded-l-md"
               />
-              <Button type="button" color="primary" className="ml-2 rounded-r-md">
-                Search
-              </Button>
+           
             </div>
             {filteredCourses.length > 0 ? (
               <ListGroup>
