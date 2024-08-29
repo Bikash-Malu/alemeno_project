@@ -17,10 +17,6 @@ Follow these steps to set up and run the application locally:
 
    ```bash
    git clone https://github.com/your-username/course-enrolled.git
-2.```Go to Folder
-   cd course-enrolled
-3.```Install Depenency
-    npm install
-4.``` Run the application
-  npm start
-
+2.**Go to Folder**
+   ```bash
+   cd alemeno_project
