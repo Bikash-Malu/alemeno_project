@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, { useState } from 'react';
+import CourseList from './components/course/CourseList';
+import CourseDetails from './components/course/CourseDetails';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
+  const [selectedCourse, setSelectedCourse] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+     <Toaster position="top-right" reverseOrder={false} />
+      {!selectedCourse ? (
+        <CourseList setSelectedCourse={setSelectedCourse} />
+      ) : (
+        <CourseDetails course={selectedCourse} />
+      )}
     </div>
   );
 }
