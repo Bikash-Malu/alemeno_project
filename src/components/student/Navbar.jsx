@@ -17,7 +17,7 @@ const Navigation = () => {
         {/* Your logo or title here */}
       </div>
       <div className="hidden xl:block text-sm md:text-2xl text-gray-500 font-semibold">
-        Welcome To Course Enroll Dashboard
+        Welcome To Student Dashboard
       </div>
       <div className="flex items-center space-x-4 border-gray-200">
         <Dropdown
