@@ -9,7 +9,7 @@ const CourseList = () => {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCourse, setSelectedCourse] = useState(null); 
-  const [loading, setLoading] = useState(true); // State for loader
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -22,7 +22,7 @@ const CourseList = () => {
         console.error('Error fetching data:', error);
       })
       .finally(() => {
-        setLoading(false); // Set loading to false after fetching
+        setLoading(false); 
       });
   }, []);
 
@@ -43,7 +43,7 @@ const CourseList = () => {
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
-        {loading ? ( // Show loader if loading is true
+        {loading ? ( 
           <div className="flex justify-center items-center h-full">
             <Spinner size="xl" color="info" aria-label="Loading..." />Loading....
           </div>
