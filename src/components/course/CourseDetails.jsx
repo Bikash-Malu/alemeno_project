@@ -59,9 +59,13 @@ const CourseDetails = ({ course, onBack }) => {
           </p>
           <p className="text-sm sm:text-md text-gray-700">
             <strong>Pre-requisites:</strong>
-            {course.preRequisites && Array.isArray(course.preRequisites) && course.preRequisites.length > 0 ? (
+            {course.
+prerequisites && Array.isArray(course.
+prerequisites) && course.
+prerequisites.length > 0 ? (
               <ul className="list-disc pl-5 mt-2">
-                {course.preRequisites.map((item, index) => (
+                {course.
+prerequisites.map((item, index) => (
                   <li key={index} className="text-gray-700">{item}</li>
                 ))}
               </ul>
