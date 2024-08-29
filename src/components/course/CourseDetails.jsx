@@ -3,6 +3,7 @@ import { Card, Badge, Accordion, Button } from 'flowbite-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { enrollCourse } from '../../redux/courseSlice';
 import { toast } from 'react-hot-toast';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const CourseDetails = ({ course, onBack }) => {
   const dispatch = useDispatch();
@@ -17,10 +18,21 @@ const CourseDetails = ({ course, onBack }) => {
   }, [enrolledCourses, course.id]);
 
   const handleEnroll = () => {
-    dispatch(enrollCourse(course));
-    setIsEnrolled(true);
-    toast.success(`Successfully enrolled in ${course.name}!`, {
-      duration: 2000,
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Do you want to enroll in ${course.name}?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, enroll me!',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(enrollCourse(course));
+        setIsEnrolled(true);
+        toast.success(`Successfully enrolled in ${course.name}!`, {
+          duration: 2000,
+        });
+      }
     });
   };
 
@@ -59,13 +71,9 @@ const CourseDetails = ({ course, onBack }) => {
           </p>
           <p className="text-sm sm:text-md text-gray-700">
             <strong>Pre-requisites:</strong>
-            {course.
-prerequisites && Array.isArray(course.
-prerequisites) && course.
-prerequisites.length > 0 ? (
+            {course.prerequisites && Array.isArray(course.prerequisites) && course.prerequisites.length > 0 ? (
               <ul className="list-disc pl-5 mt-2">
-                {course.
-prerequisites.map((item, index) => (
+                {course.prerequisites.map((item, index) => (
                   <li key={index} className="text-gray-700">{item}</li>
                 ))}
               </ul>
