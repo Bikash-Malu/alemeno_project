@@ -16,7 +16,7 @@ Follow these steps to set up and run the application locally:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-username/course-enrolled.git
+   git clone https://github.com/Bikash-Malu/alemeno_project.git
 2.**Go to Folder**
    ```bash
    cd alemeno_project
