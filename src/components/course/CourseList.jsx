@@ -3,6 +3,7 @@ import axios from 'axios';
 import { TextInput, Button, ListGroup } from 'flowbite-react'; 
 import CourseCard from './CourseCard';
 import CourseDetails from './CourseDetails';
+import Layout from '../student/Layout';
 
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
@@ -37,7 +38,8 @@ const CourseList = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 mt-10">
+    <Layout>
+  <div className="container mx-auto px-4 py-8 ">
       {!selectedCourse ? (
         <>
           <div className="mb-4 flex items-center mt-4">
@@ -73,6 +75,8 @@ const CourseList = () => {
         <CourseDetails course={selectedCourse} onBack={handleBackToList} /> 
       )}
     </div>
+    </Layout>
+  
   );
 };
 
