@@ -1,6 +1,6 @@
 // src/App.js
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import CourseList from './components/course/CourseList';
 import CourseDetails from './components/course/CourseDetails';
 import { Toaster } from 'react-hot-toast';
@@ -19,8 +19,8 @@ function App() {
         <div className="flex-1">
           <Toaster position="top-right" reverseOrder={false} />
           <Routes>
-            <Route path="/" element={<Layout />} />
-            <Route path="/courses" element={<CourseList setSelectedCourse={setSelectedCourse} />} />
+          <Route path="/" element={<Navigate to="/courses" />} />
+          <Route path="/courses" element={<CourseList setSelectedCourse={setSelectedCourse}/>} />
             <Route path="/course-details" element={<CourseDetails course={selectedCourse} />} />
             <Route path="/course-enroll" element={<EnrolledCourse />} />
             <Route path="/profile" element={<Profile />} />
