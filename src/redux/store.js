@@ -13,5 +13,4 @@ export const store = configureStore({
     courses: persistedReducer,
   },
 });
-
 export const persistor = persistStore(store);

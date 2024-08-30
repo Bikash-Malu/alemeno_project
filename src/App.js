@@ -7,7 +7,6 @@ import Profile from './components/student/Profile';
 import LogoutPage from './components/student/LogoutPage';
 
 function App() {
-  const [selectedCourse, setSelectedCourse] = useState(null);
 
   return (
     <Router>
@@ -16,7 +15,7 @@ function App() {
           <Toaster position="top-right" reverseOrder={false} />
           <Routes>
           <Route path="/" element={<Navigate to="/courses" />} />
-          <Route path="/courses" element={<CourseList setSelectedCourse={setSelectedCourse}/>} />
+          <Route path="/courses" element={<CourseList/>} />
             <Route path="/course-enroll" element={<EnrolledCourse />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/logout" element={<LogoutPage />} />
